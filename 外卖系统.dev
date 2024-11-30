@@ -1,7 +1,7 @@
 [Project]
 FileName=外卖系统.dev
 Name=外卖系统
-UnitCount=3
+UnitCount=4
 Type=1
 Ver=2
 ObjFiles=
@@ -85,6 +85,17 @@ CompileCpp=1
 Folder=
 Compile=1
 Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+DetectEncoding=0
+Encoding=0
+
+[Unit4]
+FileName=Data.sav
+Folder=
+Compile=0
+Link=0
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
