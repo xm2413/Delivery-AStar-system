@@ -3,43 +3,47 @@
 using namespace std;
 
 
-void Clear(){
+void Clear() {
 	system("cls");
 }
-void PrintTitle(char *text){
+void Fenge() {
+	printf("---------------------------\n");
+}
+void PrintTitle(char *text) {
 	printf("---------------------------\n");
 	printf("      %s\n", text);
 	printf("---------------------------\n");
 }
-void SetWait(){
+void SetWait() {
 	printf("> 按下任意键继续......\n");
 	getch();
 }
-void Fenge(){
-	printf("---------------------------\n");
-} 
-void InputString(char* result, char *text){
+void tbd() {
+	PrintTitle("功能敬请期待！");
+	SetWait();
+}
+
+void InputString(char* result, char *text) {
 	printf("> %s", text);
 	scanf("%s", result);
 }
-void InputInt(int* result, char *text){
+void InputInt(int* result, char *text) {
 	printf("> %s", text);
 	scanf("%d", result);
 }
-void InputDouble(double *result, char *text){
+void InputDouble(double *result, char *text) {
 	printf("> %s", text);
 	scanf("%lf", result);
 }
 void ShowSelect(int count, char* text[]) {
-	for(int i = 0; i < count; i++){
+	for (int i = 0; i < count; i++) {
 		printf("%d.%s\n", i + 1, text[i]);
 	}
-	Fenge(); 
+	Fenge();
 }
-void Print(char *text){
+void Print(char *text) {
 	printf("> %s\n", text);
 }
-
 void ExitPage() {
 
 	exit(0);
