@@ -92,7 +92,7 @@ class Map {
 			vector<vector<int>> grid(i, vector<int>(j, 0));
 			return grid;
 		}
-		//
+		//填充地图
 		void fillGrid(vector<vector<int>>& grid,FILE *pf) {
 			for (int r = 0; r < grid.size(); ++r) {
 				for (int c = 0; c < grid[r].size(); ++c) {
@@ -183,7 +183,7 @@ class Map {
 			}
 			cout << "End" << endl;
 		}
-		//找所有的点
+		//找所有的路径
 		void FindALL() {
 			for (int i = 0; i < goals.size()-1; ++i) {
 				Find1(*goals[i],*goals[i+1]);
