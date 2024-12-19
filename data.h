@@ -2,32 +2,34 @@
 using namespace std;
 const int MAXNAMELEN = 10;
 const int MAXLEN = 11;
+//节点
 struct Node {
-	int x, y;
-	float g, h;
+	int x, y;//x,y坐标
+	float g, h;//g当前代价,h预估代价
 	Node *parent;
-
+	//构造函数
 	Node(int x, int y) : x(x), y(y), g(0), h(0), parent(nullptr) {}
-
+	//返回一个A*代价
 	float getF() const {
 		return g + h;
 	}
 };
 
+//A*
 class AStar {
 	public:
-		vector<vector<int>> grid;
-		int rows, cols;
-
+		vector<vector<int>> grid;//存地图
+		int rows, cols;//长宽
+		//构造函数，传地图进来
 		AStar(const vector<vector<int>>& grid) : grid(grid) {
 			rows = grid.size();
 			cols = grid[0].size();
 		}
-
+		//核心决策
 		float heuristic(Node* a, Node* b) {
 			return abs(a->x - b->x) + abs(a->y - b->y);
 		}
-
+		//搜索
 		vector<Node*> getNeighbors(Node* node) {
 			vector<Node*> neighbors;
 			int directions[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
@@ -40,7 +42,7 @@ class AStar {
 			}
 			return neighbors;
 		}
-
+		//构建路径
 		vector<Node*> reconstructPath(Node* end) {
 			vector<Node*> path;
 			Node* current = end;
@@ -51,7 +53,7 @@ class AStar {
 			reverse(path.begin(), path.end());
 			return path;
 		}
-
+		//寻路
 		vector<Node*> findPath(Node* start, Node* goals) {
 			priority_queue<pair<float, Node*>, vector<pair<float, Node*>>, greater<pair<float, Node*>>> openSet;
 			openSet.emplace(start->getF(), start);
@@ -82,6 +84,7 @@ class AStar {
 			return {}; // Return empty path if no path found
 		}
 };
+//地图
 class Map {
 	public:
 		// 创建一个 i 行 j 列的二维 vector，初始值为0
@@ -89,6 +92,7 @@ class Map {
 			vector<vector<int>> grid(i, vector<int>(j, 0));
 			return grid;
 		}
+		//
 		void fillGrid(vector<vector<int>>& grid,FILE *pf) {
 			for (int r = 0; r < grid.size(); ++r) {
 				for (int c = 0; c < grid[r].size(); ++c) {
@@ -96,6 +100,7 @@ class Map {
 				}
 			}
 		}
+		//设初始值
 		vector<vector<int> > grid = {
 			{0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0},
@@ -103,6 +108,7 @@ class Map {
 			{0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0}
 		};
+		//打印地图
 		void PrintMap() {
 			for (int i = 0; i < grid.size(); ++i) {
 				for (int j = 0; j < grid[i].size(); ++j) {
@@ -112,6 +118,7 @@ class Map {
 			}
 
 		}
+		//修改地图
 		void ModifyMap(int i,int j,int k) {
 			grid[i-1][j-1]=k;
 		}
@@ -147,6 +154,7 @@ class Map {
 		}
 		vector<Node*> goals;
 		//vector<vector<Node*> > path;
+		//打印路径点
 		void Printgoals() {
 			if (goals.size()<=0) {
 				cout<<"暂无目标点"<<endl;
@@ -156,6 +164,7 @@ class Map {
 				}
 			}
 		}
+		//增加路径点
 		void Addgoals(int i1,int i2,int i3) {
 
 			auto it = goals.begin() + i1; // 指向第二个位置
@@ -164,6 +173,7 @@ class Map {
 
 			goals.insert(it,node1);
 		}
+		//找一个点
 		void Find1(Node start,Node goal) {
 
 			AStar astar(grid);
@@ -173,6 +183,7 @@ class Map {
 			}
 			cout << "End" << endl;
 		}
+		//找所有的点
 		void FindALL() {
 			for (int i = 0; i < goals.size()-1; ++i) {
 				Find1(*goals[i],*goals[i+1]);
@@ -180,16 +191,8 @@ class Map {
 		}
 };
 Map map1;
+//在读取的时候执行
 void OnLoad() {
 	map1.LoadFile();
 }
 
-void find1(vector<vector<int>> grid,Node start,Node goals) {
-
-	AStar astar(grid);
-	vector<Node*> path = astar.findPath(&start, &goals);
-	for (Node* node : path) {
-		cout << "(" << node->x << ", " << node->y << ") -> ";
-	}
-	cout << "End" << endl;
-}

@@ -133,7 +133,9 @@ void MainMenu() {
 	}
 }
 int main() {
+	//程序启动执行
 	OnLoad();
+	//
 	PrintTitle("欢迎使用外卖配送系统");
 	SetWait();
 	MainMenu();
