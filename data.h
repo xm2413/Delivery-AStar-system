@@ -36,7 +36,7 @@ class AStar {
 			for (auto& dir : directions) {
 				int newX = node->x + dir[0];
 				int newY = node->y + dir[1];
-				if (newX >= 0 && newX < rows && newY >= 0 && newY < cols && grid[newX][newY] == 0) {
+				if (newX >= 0 && newX < rows && newY >= 0 && newY < cols ) {
 					neighbors.push_back(new Node(newX, newY));
 				}
 			}
@@ -72,7 +72,7 @@ class AStar {
 				for (Node* neighbor : getNeighbors(current)) {
 					if (closedSet[neighbor->x][neighbor->y]) continue;
 
-					float tentativeG = current->g + 1; // Assuming cost between nodes is 1
+					float tentativeG = current->g + grid[current->x][current->y]; // Assuming cost between nodes is 1
 					if (tentativeG < neighbor->g || neighbor->g == 0) {
 						neighbor->parent = current;
 						neighbor->g = tentativeG;
@@ -110,17 +110,23 @@ class Map {
 		};
 		//打印地图
 		void PrintMap() {
+			printf("   ");
+			for (int i = 0; i < grid[0].size(); ++i) {
+				printf("%2d",i);
+			}cout<<endl<<endl;
 			for (int i = 0; i < grid.size(); ++i) {
+				
 				for (int j = 0; j < grid[i].size(); ++j) {
+					if(j==0)printf("%2d ",i);
+					
 					printf("%2d",grid[i][j]);
 				}
 				printf("\n");
 			}
-
 		}
 		//修改地图
 		void ModifyMap(int i,int j,int k) {
-			grid[i-1][j-1]=k;
+			grid[i][j]=k;
 		}
 		//输出到文件
 		void SaveFile() {
@@ -150,6 +156,23 @@ class Map {
 						fscanf(pf, "%d", &grid[r][c]);
 					}
 				}
+			} else cout<<"未找到文件"<<endl;
+		}
+		//导入外部文件
+		void ImportLoadFile(char* result) {
+			FILE *pf = fopen(result, "r");
+			if (pf != NULL) {
+				int rows, cols;
+				fscanf(pf, "%d", &rows);
+				fscanf(pf, "%d", &cols);
+				grid=createGrid(rows,cols);
+				//vector<vector<int> > temp;
+				for (int r = 0; r < grid.size(); ++r) {
+					for (int c = 0; c < grid[r].size(); ++c) {
+						fscanf(pf, "%d", &grid[r][c]);
+					}
+				}
+				cout<<"导入成功！"<<endl;
 			} else cout<<"未找到文件"<<endl;
 		}
 		vector<Node*> goals;
@@ -195,4 +218,3 @@ Map map1;
 void OnLoad() {
 	map1.LoadFile();
 }
-
