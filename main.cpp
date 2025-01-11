@@ -79,8 +79,6 @@ void ModifygoalsMenu() {
 }
 void ShowRoadMenu() {
 	uiManager.Clear();
-	uiManager.PrintTitle("µ±Ç°Â·¾¶");
-
 	map1.PrintMap();
 	uiManager.SetWait();
 }

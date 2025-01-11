@@ -1,3 +1,6 @@
+#ifndef UI_H
+#define UI_H
+
 #include<bits/stdc++.h>
 #include<conio.h>
 using namespace std;
@@ -58,3 +61,4 @@ class UIManager {
 
 };
 static UIManager uiManager;
+#endif

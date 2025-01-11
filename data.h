@@ -1,3 +1,6 @@
+#ifndef DATA_H
+#define DATA_H
+#include"ui.h"
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXNAMELEN = 10;
@@ -110,6 +113,7 @@ class Map {
 		};
 		//¥Ú”°µÿÕº
 		void PrintMap() {
+			uiManager.PrintTitle("      µÿÕº");
 			printf("   ");
 			for (int i = 0; i < grid[0].size(); ++i) {
 				printf("%2d",i);
@@ -218,3 +222,4 @@ Map map1;
 void OnLoad() {
 	map1.LoadFile();
 }
+#endif
