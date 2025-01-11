@@ -85,6 +85,7 @@ void ShowRoadMenu() {
 
 void ModifyRoadMenu() {
 	uiManager.Clear();
+	map1.PrintMap();
 	uiManager.PrintTitle("修改路径信息");
 	int i1,i2,i3;
 	uiManager.InputInt(&i1,"请输入待修改路段x坐标");
